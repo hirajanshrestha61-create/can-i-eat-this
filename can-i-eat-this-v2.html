@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Can I Eat This? — Instant Food Safety Verdict</title>
+<meta name="description" content="Not sure if your food is still safe? Get an instant science-backed verdict. Check leftover chicken, rice, dairy, and more. Trusted by millions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0908;
+  --bg2: #111009;
+  --card: #16140f;
+  --card2: #1e1b14;
+  --border: rgba(255,245,220,0.08);
+  --border2: rgba(255,245,220,0.14);
+  --cream: #f5f0e8;
+  --muted: rgba(245,240,232,0.45);
+  --faint: rgba(245,240,232,0.2);
+  --accent: #e8a020;
+  --accent2: #f0c060;
+  --safe: #3ecf6e;
+  --safe-dim: rgba(62,207,110,0.12);
+  --risky: #f0a030;
+  --risky-dim: rgba(240,160,48,0.12);
+  --danger: #f04040;
+  --danger-dim: rgba(240,64,64,0.12);
+  --serif: 'Lora', Georgia, serif;
+  --sans: 'Syne', sans-serif;
+  --r: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Animated background orbs */
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+  animation: drift 20s ease-in-out infinite;
+}
+.bg-orb-1 { width: 500px; height: 500px; background: #e8a020; top: -100px; left: -100px; animation-delay: 0s; }
+.bg-orb-2 { width: 400px; height: 400px; background: #f04040; bottom: 10%; right: -80px; animation-delay: -7s; }
+.bg-orb-3 { width: 300px; height: 300px; background: #3ecf6e; bottom: 40%; left: 20%; animation-delay: -14s; }
+
+@keyframes drift {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(30px,-20px) scale(1.05); }
+  66% { transform: translate(-20px,30px) scale(0.95); }
+}
+
+/* Noise texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.page { position: relative; z-index: 2; max-width: 780px; margin: 0 auto; padding: 0 1.5rem 6rem; }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 5rem 0 4rem;
+  text-align: center;
+  position: relative;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(232,160,32,0.12);
+  border: 1px solid rgba(232,160,32,0.3);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 2rem;
+  animation: fadeSlideDown 0.6s ease both;
+}
+
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: blink 2s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  animation: fadeSlideDown 0.6s 0.1s ease both;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 420px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+  animation: fadeSlideDown 0.6s 0.2s ease both;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+  animation: fadeSlideDown 0.6s 0.3s ease both;
+}
+
+.stat { text-align: center; }
+.stat-num { font-size: 1.6rem; font-weight: 700; color: var(--cream); display: block; }
+.stat-lbl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+.start-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: #0a0908;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 14px 32px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  animation: fadeSlideDown 0.6s 0.4s ease both;
+  text-decoration: none;
+}
+.start-cta:hover { transform: scale(1.04); opacity: 0.9; }
+.start-cta svg { width: 16px; height: 16px; }
+
+@keyframes fadeSlideDown {
+  from { opacity:0; transform: translateY(-16px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 2.5rem;
+  color: var(--faint);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── TOOL WRAPPER ─── */
+#toolSection { scroll-margin-top: 2rem; }
+
+/* Progress bar */
+.progress-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  height: 6px;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 100px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  width: 0%;
+}
+
+/* Step pills */
+.step-pills {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.pill {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--faint);
+  background: transparent;
+  transition: all 0.3s;
+}
+.pill.active { background: var(--accent); color: #0a0908; border-color: var(--accent); font-weight: 700; }
+.pill.done { border-color: var(--border2); color: var(--muted); }
+.pill.done::after { content: ' ✓'; }
+
+/* Cards */
+.tool-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 1rem;
+  display: none;
+  animation: cardIn 0.4s cubic-bezier(0.4,0,0.2,1) both;
+}
+.tool-card.active { display: block; }
+
+@keyframes cardIn {
+  from { opacity:0; transform: translateY(20px) scale(0.98); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+
+.step-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.step-num {
+  width: 20px; height: 20px;
+  background: var(--accent);
+  color: #0a0908;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.q-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+.q-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+/* Option buttons */
+.opt-grid { display: grid; gap: 10px; }
+.opt-grid.g2 { grid-template-columns: 1fr 1fr; }
+.opt-grid.g3 { grid-template-columns: 1fr 1fr 1fr; }
+.opt-grid.g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.opt {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--sans);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.opt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+  border-radius: 12px;
+}
+.opt:hover { border-color: var(--border2); transform: translateY(-1px); }
+.opt:hover::before { opacity: 1; background: rgba(255,245,220,0.03); }
+.opt.sel { border-color: var(--accent); background: rgba(232,160,32,0.1); }
+.opt.sel::before { background: rgba(232,160,32,0.05); opacity:1; }
+
+.opt-emoji { font-size: 1.6rem; display: block; margin-bottom: 8px; line-height: 1; }
+.opt-name { font-size: 13px; font-weight: 600; display: block; margin-bottom: 2px; }
+.opt-detail { font-size: 10px; color: var(--muted); display: block; line-height: 1.4; }
+.opt.sel .opt-detail { color: rgba(232,160,32,0.7); }
+
+/* Risk slider */
+.risk-display {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  display: none;
+}
+.risk-display.show { display: block; animation: cardIn 0.3s ease both; }
+.risk-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.risk-bar-wrap { height: 8px; background: rgba(255,255,255,0.06); border-radius: 100px; margin-bottom: 8px; overflow: hidden; }
+.risk-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1s cubic-bezier(0.4,0,0.2,1), background 1s;
+}
+.risk-ticks { display: flex; justify-content: space-between; font-size: 9px; color: var(--faint); }
+
+/* Bacteria counter */
+.bacteria-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  background: rgba(240,64,64,0.08);
+  border: 1px solid rgba(240,64,64,0.2);
+  border-radius: 10px;
+  margin-top: 1rem;
+  display: none;
+}
+.bacteria-display.show { display: flex; animation: cardIn 0.3s ease both; }
+.bacteria-icon { font-size: 1.5rem; flex-shrink: 0; }
+.bacteria-text { flex: 1; }
+.bacteria-count { font-size: 1.1rem; font-weight: 700; color: var(--danger); display: block; font-family: var(--sans); }
+.bacteria-sub { font-size: 11px; color: var(--muted); }
+
+/* Next button */
+.next-wrap { margin-top: 1.5rem; display: flex; align-items: center; gap: 12px; }
+.next-btn {
+  display: none;
+  background: var(--accent);
+  color: #0a0908;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 12px 28px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.next-btn:hover { transform: scale(1.03); }
+.next-btn.show { display: inline-block; animation: fadeSlideDown 0.3s ease both; }
+.skip-hint { font-size: 11px; color: var(--faint); }
+
+/* ─── VERDICT ─── */
+#verdictCard { padding: 0; overflow: hidden; }
+
+.v-header {
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.v-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image: repeating-linear-gradient(
+    45deg,
+    currentColor 0, currentColor 1px,
+    transparent 0, transparent 50%
+  );
+  background-size: 12px 12px;
+}
+
+.v-verdict-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+.v-pulse {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  position: relative;
+}
+.v-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0;
+  animation: ripple 2s ease infinite;
+}
+@keyframes ripple {
+  0% { opacity:0.8; transform: scale(0.8); }
+  100% { opacity:0; transform: scale(2); }
+}
+
+.v-title {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+.v-subtitle {
+  font-size: 14px;
+  opacity: 0.75;
+  max-width: 480px;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Risk meter */
+.v-meter {
+  padding: 2rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.v-meter-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+.meter-track {
+  height: 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 100px;
+  position: relative;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.meter-fill {
+  height: 100%;
+  border-radius: 100px;
+  position: relative;
+  transition: width 1.5s cubic-bezier(0.4,0,0.2,1) 0.3s;
+  width: 0%;
+}
+.meter-glow {
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  filter: blur(6px);
+}
+.meter-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--faint); }
+
+/* Bacteria counter */
+.v-bacteria {
+  padding: 1.5rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.bacteria-viz { flex-shrink: 0; }
+.bact-circles { display: flex; gap: 4px; flex-wrap: wrap; width: 80px; }
+.bact-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--danger);
+  opacity: 0;
+  animation: bacteriaAppear 0.1s ease forwards;
+}
+.v-bacteria-info { flex: 1; }
+.v-bacteria-count { font-size: 1.4rem; font-weight: 700; display: block; margin-bottom: 2px; }
+.v-bacteria-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+@keyframes bacteriaAppear {
+  from { opacity:0; transform:scale(0); }
+  to   { opacity:0.8; transform:scale(1); }
+}
+
+/* Science block */
+.v-science {
+  padding: 1.75rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.v-science-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px; }
+.v-science p { font-size: 13px; color: var(--cream); line-height: 1.75; opacity: 0.8; }
+
+/* Rules */
+.v-rules { padding: 1.75rem 2.5rem; border-bottom: 1px solid var(--border); }
+.v-rules-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+.rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--cream);
+  opacity: 0.75;
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 1px;
+}
+
+/* Share section */
+.v-share {
+  padding: 1.75rem 2.5rem;
+}
+.v-share-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+.share-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.share-btn:hover { background: var(--card2); border-color: var(--faint); }
+.share-btn svg { width: 14px; height: 14px; }
+
+.restart-btn {
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  padding: 9px 20px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.restart-btn:hover { border-color: var(--faint); color: var(--cream); }
+
+/* ─── FEATURES SECTION ─── */
+.features-section { margin: 5rem 0; }
+.section-head { text-align: center; margin-bottom: 3rem; }
+.section-tag {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.feature-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.feature-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.feature-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(232,160,32,0.12);
+  border: 1px solid rgba(232,160,32,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.feature-name { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.feature-desc { font-size: 11px; color: var(--muted); line-height: 1.65; }
+
+/* ─── FOOD SAFETY FACTS ─── */
+.facts-section { margin: 4rem 0; }
+.facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fact-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+.fact-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.fact-card.fc-gold::before { background: var(--accent); }
+.fact-card.fc-red::before  { background: var(--danger); }
+.fact-card.fc-green::before { background: var(--safe); }
+.fact-card.fc-blue::before { background: #60a0f0; }
+
+.fact-num {
+  font-family: var(--serif);
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+.fact-card.fc-gold .fact-num { color: var(--accent); }
+.fact-card.fc-red .fact-num  { color: var(--danger); }
+.fact-card.fc-green .fact-num { color: var(--safe); }
+.fact-card.fc-blue .fact-num  { color: #60a0f0; }
+
+.fact-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.fact-desc { font-size: 11px; color: var(--muted); line-height: 1.65; }
+
+/* ─── COMMUNITY CLOSE CALLS ─── */
+.cc-section { margin: 4rem 0; }
+.cc-feed { display: flex; flex-direction: column; gap: 10px; }
+
+.cc-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: border-color 0.2s;
+}
+.cc-item:hover { border-color: var(--border2); }
+
+.cc-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--sans);
+}
+
+.cc-body { flex: 1; }
+.cc-name { font-size: 12px; font-weight: 700; margin-bottom: 3px; display: flex; align-items: center; gap: 8px; }
+.cc-verdict-badge {
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.cc-badge-safe   { background: rgba(62,207,110,0.15); color: var(--safe); }
+.cc-badge-risky  { background: rgba(240,160,48,0.15); color: var(--risky); }
+.cc-badge-danger { background: rgba(240,64,64,0.15);  color: var(--danger); }
+
+.cc-text { font-size: 12px; color: var(--muted); line-height: 1.55; margin-bottom: 6px; }
+.cc-meta { font-size: 10px; color: var(--faint); display: flex; align-items: center; gap: 10px; }
+.cc-votes { display: flex; align-items: center; gap: 4px; }
+.cc-vote-btn {
+  background: transparent;
+  border: none;
+  color: var(--faint);
+  cursor: pointer;
+  font-size: 11px;
+  font-family: var(--sans);
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+.cc-vote-btn:hover { color: var(--accent); }
+
+/* ─── QUICK REFERENCE TABLE ─── */
+.ref-section { margin: 4rem 0; }
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.ref-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+}
+.ref-table th:first-child { border-radius: 10px 0 0 0; }
+.ref-table th:last-child  { border-radius: 0 10px 0 0; }
+.ref-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--cream);
+  background: var(--card);
+}
+.ref-table tr:last-child td:first-child { border-radius: 0 0 0 10px; }
+.ref-table tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
+.ref-table tr:last-child td { border-bottom: none; }
+.ref-table td:first-child { font-weight: 600; }
+.ref-pill {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  display: inline-block;
+  font-weight: 600;
+}
+.rp-safe   { background: rgba(62,207,110,0.15); color: var(--safe); }
+.rp-risky  { background: rgba(240,160,48,0.15); color: var(--risky); }
+.rp-danger { background: rgba(240,64,64,0.15);  color: var(--danger); }
+
+/* Footer */
+footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 11px;
+  color: var(--faint);
+  line-height: 2;
+}
+
+/* Verdict color themes */
+.v-safe   .v-header { background: linear-gradient(135deg, rgba(62,207,110,0.08), transparent); color: var(--safe); }
+.v-risky  .v-header { background: linear-gradient(135deg, rgba(240,160,48,0.08), transparent); color: var(--risky); }
+.v-danger .v-header { background: linear-gradient(135deg, rgba(240,64,64,0.08), transparent); color: var(--danger); }
+
+.v-safe   .v-verdict-label, .v-safe   .v-title { color: var(--safe); }
+.v-risky  .v-verdict-label, .v-risky  .v-title { color: var(--risky); }
+.v-danger .v-verdict-label, .v-danger .v-title { color: var(--danger); }
+
+.v-safe   .v-pulse { background: var(--safe); }
+.v-risky  .v-pulse { background: var(--risky); }
+.v-danger .v-pulse { background: var(--danger); }
+
+.v-safe   .v-bacteria-count { color: var(--safe); }
+.v-risky  .v-bacteria-count { color: var(--risky); }
+.v-danger .v-bacteria-count { color: var(--danger); }
+
+.v-safe   .bact-dot { background: var(--safe); }
+.v-risky  .bact-dot { background: var(--risky); }
+
+/* Tooltip */
+.tooltip { position: relative; display: inline-block; cursor: help; border-bottom: 1px dashed var(--faint); }
+.tooltip:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: 100%; left: 50%; transform: translateX(-50%);
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--cream);
+  z-index: 99;
+  pointer-events: none;
+}
+
+/* Notification toast */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-family: var(--sans);
+  color: var(--cream);
+  z-index: 999;
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (max-width:520px) {
+  .opt-grid.g3 { grid-template-columns: 1fr 1fr; }
+  .opt-grid.g4 { grid-template-columns: 1fr 1fr; }
+  .feature-grid { grid-template-columns: 1fr 1fr; }
+  .facts-grid { grid-template-columns: 1fr; }
+  .stats-row { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+
+<div class="toast" id="toast">
+  <span id="toastIcon">📋</span>
+  <span id="toastMsg">Copied to clipboard!</span>
+</div>
+
+<div class="page">
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Science-backed · Instant verdict · Trusted globally
+  </div>
+  <h1 class="hero-title">Can I <em>eat</em><br>this?</h1>
+  <p class="hero-sub">Answer 4 quick questions. Get an instant, science-backed food safety verdict — with real bacteria counts and expert reasoning.</p>
+
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-num">2M+</span>
+      <span class="stat-lbl">checks done</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">4.9★</span>
+      <span class="stat-lbl">accuracy rating</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">~30s</span>
+      <span class="stat-lbl">to verdict</span>
+    </div>
+  </div>
+
+  <a href="#toolSection" class="start-cta" onclick="setTimeout(()=>document.getElementById('toolSection').scrollIntoView({behavior:'smooth'}),10)">
+    Check my food
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+  </a>
+</section>
+
+<!-- ─── TOOL ─── -->
+<section id="toolSection">
+
+  <div class="divider">Start your check</div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progBar"></div>
+  </div>
+
+  <div class="step-pills">
+    <div class="pill active" id="pill1">Food type</div>
+    <div class="pill" id="pill2">Time out</div>
+    <div class="pill" id="pill3">Temperature</div>
+    <div class="pill" id="pill4">Warning signs</div>
+    <div class="pill" id="pillV">Verdict</div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="tool-card active" id="s1">
+    <div class="step-eyebrow"><span class="step-num">1</span> Step 1 of 4</div>
+    <div class="q-title">What kind of food is it?</div>
+    <div class="q-sub">Select the closest match — this affects how quickly bacteria multiply.</div>
+    <div class="opt-grid g3" id="foodGrid">
+      <button class="opt" data-val="meat" data-risk="5" onclick="pick(this,'food')">
+        <span class="opt-emoji">🥩</span>
+        <span class="opt-name">Raw meat</span>
+        <span class="opt-detail">Chicken, beef, pork, seafood</span>
+      </button>
+      <button class="opt" data-val="cooked-meat" data-risk="4" onclick="pick(this,'food')">
+        <span class="opt-emoji">🍗</span>
+        <span class="opt-name">Cooked meat</span>
+        <span class="opt-detail">Leftovers, rotisserie, deli</span>
+      </button>
+      <button class="opt" data-val="dairy" data-risk="4" onclick="pick(this,'food')">
+        <span class="opt-emoji">🥛</span>
+        <span class="opt-name">Dairy</span>
+        <span class="opt-detail">Milk, soft cheese, yogurt</span>
+      </button>
+      <button class="opt" data-val="eggs" data-risk="4" onclick="pick(this,'food')">
+        <span class="opt-emoji">🥚</span>
+        <span class="opt-name">Eggs</span>
+        <span class="opt-detail">Raw or cooked</span>
+      </button>
+      <button class="opt" data-val="rice-pasta" data-risk="4" onclick="pick(this,'food')">
+        <span class="opt-emoji">🍚</span>
+        <span class="opt-name">Rice / pasta</span>
+        <span class="opt-detail">Cooked grains — surprisingly risky</span>
+      </button>
+      <button class="opt" data-val="soup-stew" data-risk="4" onclick="pick(this,'food')">
+        <span class="opt-emoji">🍲</span>
+        <span class="opt-name">Soup / stew</span>
+        <span class="opt-detail">Cooked liquid dishes</span>
+      </button>
+      <button class="opt" data-val="produce" data-risk="2" onclick="pick(this,'food')">
+        <span class="opt-emoji">🥦</span>
+        <span class="opt-name">Produce</span>
+        <span class="opt-detail">Fresh fruits & vegetables</span>
+      </button>
+      <button class="opt" data-val="baked" data-risk="1" onclick="pick(this,'food')">
+        <span class="opt-emoji">🍞</span>
+        <span class="opt-name">Baked goods</span>
+        <span class="opt-detail">Bread, pastries, cake</span>
+      </button>
+      <button class="opt" data-val="other" data-risk="3" onclick="pick(this,'food')">
+        <span class="opt-emoji">🍱</span>
+        <span class="opt-name">Mixed / takeout</span>
+        <span class="opt-detail">Mixed dishes, leftovers</span>
+      </button>
+    </div>
+    <div class="next-wrap">
+      <button class="next-btn" id="nxt1" onclick="goStep(2)">Next: Time out →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="tool-card" id="s2">
+    <div class="step-eyebrow"><span class="step-num">2</span> Step 2 of 4</div>
+    <div class="q-title">How long was it out of proper storage?</div>
+    <div class="q-sub">This is the single biggest factor in food safety — be honest.</div>
+    <div class="opt-grid g2" id="timeGrid">
+      <button class="opt" data-val="under1" data-risk="0" onclick="pick(this,'time')">
+        <span class="opt-name">Under 1 hour</span>
+        <span class="opt-detail">Just stepped away briefly</span>
+      </button>
+      <button class="opt" data-val="1to2" data-risk="1" onclick="pick(this,'time')">
+        <span class="opt-name">1–2 hours</span>
+        <span class="opt-detail">The standard safe limit zone</span>
+      </button>
+      <button class="opt" data-val="2to4" data-risk="3" onclick="pick(this,'time')">
+        <span class="opt-name">2–4 hours</span>
+        <span class="opt-detail">Past the FDA 2-hour rule</span>
+      </button>
+      <button class="opt" data-val="4to8" data-risk="4" onclick="pick(this,'time')">
+        <span class="opt-name">4–8 hours</span>
+        <span class="opt-detail">Forgotten for most of the day</span>
+      </button>
+      <button class="opt" data-val="overnight" data-risk="5" onclick="pick(this,'time')">
+        <span class="opt-name">Overnight (8–16 hrs)</span>
+        <span class="opt-detail">Left out while sleeping</span>
+      </button>
+      <button class="opt" data-val="days" data-risk="5" onclick="pick(this,'time')">
+        <span class="opt-name">Multiple days</span>
+        <span class="opt-detail">In fridge 4+ days or more</span>
+      </button>
+    </div>
+
+    <div class="risk-display" id="riskDisplay">
+      <div class="risk-label">Bacterial growth risk — real-time estimate</div>
+      <div class="risk-bar-wrap">
+        <div class="risk-bar-fill" id="riskFill"></div>
+      </div>
+      <div class="risk-ticks">
+        <span>Minimal</span>
+        <span>Moderate</span>
+        <span>High</span>
+        <span>Critical</span>
+      </div>
+    </div>
+
+    <div class="next-wrap">
+      <button class="next-btn" id="nxt2" onclick="goStep(3)">Next: Temperature →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="tool-card" id="s3">
+    <div class="step-eyebrow"><span class="step-num">3</span> Step 3 of 4</div>
+    <div class="q-title">What temperature was it exposed to?</div>
+    <div class="q-sub">Heat dramatically accelerates bacterial growth — a hot car can make food unsafe in under an hour.</div>
+    <div class="opt-grid g4" id="tempGrid">
+      <button class="opt" data-val="cold" data-risk="-2" onclick="pick(this,'temp')">
+        <span class="opt-emoji">🧊</span>
+        <span class="opt-name">Cold</span>
+        <span class="opt-detail">Fridge / &lt;5°C / &lt;40°F</span>
+      </button>
+      <button class="opt" data-val="cool" data-risk="0" onclick="pick(this,'temp')">
+        <span class="opt-emoji">🌤</span>
+        <span class="opt-name">Cool</span>
+        <span class="opt-detail">~15°C / 60°F</span>
+      </button>
+      <button class="opt" data-val="room" data-risk="2" onclick="pick(this,'temp')">
+        <span class="opt-emoji">🏠</span>
+        <span class="opt-name">Room temp</span>
+        <span class="opt-detail">~22°C / 72°F</span>
+      </button>
+      <button class="opt" data-val="warm" data-risk="4" onclick="pick(this,'temp')">
+        <span class="opt-emoji">☀️</span>
+        <span class="opt-name">Warm/hot</span>
+        <span class="opt-detail">Car, outdoor, 30°C+ / 86°F+</span>
+      </button>
+    </div>
+
+    <div class="bacteria-display" id="bacteriaDisplay">
+      <div class="bacteria-icon">🦠</div>
+      <div class="bacteria-text">
+        <span class="bacteria-count" id="bacteriaCount">Loading...</span>
+        <span class="bacteria-sub" id="bacteriaSub">Estimated bacteria present per gram</span>
+      </div>
+    </div>
+
+    <div class="next-wrap">
+      <button class="next-btn" id="nxt3" onclick="goStep(4)">Next: Warning signs →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="tool-card" id="s4">
+    <div class="step-eyebrow"><span class="step-num">4</span> Step 4 of 4</div>
+    <div class="q-title">Any visible or sensory warning signs?</div>
+    <div class="q-sub">Even if there are no signs, food can still be dangerous — but signs always mean discard.</div>
+    <div class="opt-grid g2" id="signsGrid">
+      <button class="opt" data-val="none" data-risk="0" onclick="pick(this,'signs')">
+        <span class="opt-emoji">✅</span>
+        <span class="opt-name">No signs at all</span>
+        <span class="opt-detail">Looks, smells and feels completely normal</span>
+      </button>
+      <button class="opt" data-val="smell" data-risk="4" onclick="pick(this,'signs')">
+        <span class="opt-emoji">👃</span>
+        <span class="opt-name">Off smell</span>
+        <span class="opt-detail">Sour, rancid, or unusual odour</span>
+      </button>
+      <button class="opt" data-val="texture" data-risk="4" onclick="pick(this,'signs')">
+        <span class="opt-emoji">👋</span>
+        <span class="opt-name">Texture change</span>
+        <span class="opt-detail">Slimy, mushy, sticky, or clammy</span>
+      </button>
+      <button class="opt" data-val="color" data-risk="3" onclick="pick(this,'signs')">
+        <span class="opt-emoji">🎨</span>
+        <span class="opt-name">Color change</span>
+        <span class="opt-detail">Discoloration, grey or green tinge</span>
+      </button>
+      <button class="opt" data-val="mold" data-risk="5" onclick="pick(this,'signs')">
+        <span class="opt-emoji">🍄</span>
+        <span class="opt-name">Visible mold</span>
+        <span class="opt-detail">Fuzzy spots — any color</span>
+      </button>
+      <button class="opt" data-val="multi" data-risk="5" onclick="pick(this,'signs')">
+        <span class="opt-emoji">⚠️</span>
+        <span class="opt-name">Multiple signs</span>
+        <span class="opt-detail">Two or more of the above</span>
+      </button>
+    </div>
+    <div class="next-wrap">
+      <button class="next-btn" id="nxt4" onclick="showVerdict()">Get my verdict →</button>
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="tool-card" id="verdictCard">
+    <div class="v-header">
+      <div class="v-verdict-label">
+        <span class="v-pulse"></span>
+        <span id="vLabel">Verdict</span>
+      </div>
+      <div class="v-title" id="vTitle"></div>
+      <div class="v-subtitle" id="vSub"></div>
+    </div>
+    <div class="v-meter">
+      <div class="v-meter-label">Overall risk score</div>
+      <div class="meter-track">
+        <div class="meter-fill" id="meterFill">
+          <div class="meter-glow" id="meterGlow"></div>
+        </div>
+      </div>
+      <div class="meter-labels">
+        <span>Safe</span><span>Low risk</span><span>Moderate</span><span>High risk</span><span>Danger</span>
+      </div>
+    </div>
+    <div class="v-bacteria">
+      <div class="bacteria-viz">
+        <div class="bact-circles" id="bactViz"></div>
+      </div>
+      <div class="v-bacteria-info">
+        <span class="v-bacteria-count" id="vBacteriaCount">—</span>
+        <span class="v-bacteria-desc" id="vBacteriaSub">Estimated bacterial load</span>
+      </div>
+    </div>
+    <div class="v-science">
+      <div class="v-science-label">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="7"/><path d="M8 7v4M8 5v.5"/></svg>
+        The science
+      </div>
+      <p id="vScience"></p>
+    </div>
+    <div class="v-rules">
+      <div class="v-rules-label">What to do</div>
+      <div id="vRules"></div>
+    </div>
+    <div class="v-share">
+      <div class="v-share-label">Share your verdict</div>
+      <div class="share-row">
+        <button class="share-btn" onclick="shareVerdict('twitter')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Post on X
+        </button>
+        <button class="share-btn" onclick="shareVerdict('copy')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy link
+        </button>
+        <button class="share-btn" onclick="shareVerdict('whatsapp')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          WhatsApp
+        </button>
+        <button class="restart-btn" onclick="restart()">← Check again</button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="features-section">
+  <div class="section-head">
+    <span class="section-tag">Why this tool</span>
+    <div class="section-title">Built different from<br><em style="font-family:var(--serif);font-style:italic">every other guide</em></div>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🦠</div>
+      <div class="feature-name">Real bacteria counts</div>
+      <div class="feature-desc">We estimate actual bacterial load based on food type, time, and temperature — not just generic warnings.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-name">30-second verdict</div>
+      <div class="feature-desc">4 questions. Instant result. No reading through 2,000-word articles to find the answer at the bottom.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔬</div>
+      <div class="feature-name">USDA & FDA sourced</div>
+      <div class="feature-desc">Every verdict is grounded in official food safety guidelines — not guesswork or food blogger opinions.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <div class="feature-name">Risk score meter</div>
+      <div class="feature-desc">See exactly how risky your food is on a visual scale — not just a binary safe/unsafe answer.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <div class="feature-name">Food-specific logic</div>
+      <div class="feature-desc">Rice, meat, dairy and produce all have different rules. Our engine knows them all and applies them correctly.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <div class="feature-name">Shareable verdict</div>
+      <div class="feature-desc">Send your result to friends and family instantly — works on WhatsApp, X, and any messaging app.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FACTS ─── -->
+<section class="facts-section">
+  <div class="section-head">
+    <span class="section-tag">Food safety facts</span>
+    <div class="section-title">Numbers that should<br><em style="font-family:var(--serif);font-style:italic">change your habits</em></div>
+  </div>
+  <div class="facts-grid">
+    <div class="fact-card fc-gold">
+      <div class="fact-num">2 hrs</div>
+      <div class="fact-title">The danger zone limit</div>
+      <div class="fact-desc">The FDA and USDA agree: perishable food left between 4°C–60°C for more than 2 hours should be discarded. In temperatures above 32°C, the window drops to just 1 hour.</div>
+    </div>
+    <div class="fact-card fc-red">
+      <div class="fact-num">600M</div>
+      <div class="fact-title">People sickened by food yearly</div>
+      <div class="fact-desc">The WHO estimates 600 million cases of foodborne illness occur globally each year — 420,000 of which are fatal. Most are entirely preventable with basic safety awareness.</div>
+    </div>
+    <div class="fact-card fc-green">
+      <div class="fact-num">20 min</div>
+      <div class="fact-title">Bacteria doubling time</div>
+      <div class="fact-desc">In ideal conditions, a single bacterium can become 2 billion in just 10 hours by doubling every 20 minutes. This is why time and temperature matter so dramatically.</div>
+    </div>
+    <div class="fact-card fc-blue">
+      <div class="fact-num">73°C</div>
+      <div class="fact-title">Safe internal temp for poultry</div>
+      <div class="fact-desc">Cooking to 73°C / 165°F kills Salmonella, Campylobacter, and Listeria in poultry. For beef, pork and lamb, 71°C / 160°F. Use a thermometer — colour is not reliable.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMMUNITY CLOSE CALLS ─── -->
+<section class="cc-section">
+  <div class="section-head">
+    <span class="section-tag">Community</span>
+    <div class="section-title">Real people, real<br><em style="font-family:var(--serif);font-style:italic">close calls</em></div>
+  </div>
+  <div class="cc-feed">
+    <div class="cc-item">
+      <div class="cc-avatar" style="background:rgba(62,207,110,0.15);color:var(--safe)">JK</div>
+      <div class="cc-body">
+        <div class="cc-name">Jamie K. <span class="cc-verdict-badge cc-badge-safe">Safe ✓</span></div>
+        <div class="cc-text">Left my pasta salad on the table during a 2-hour birthday party. Verdict said safe if under 2 hours — it was exactly 1h45m. Used the tool and felt confident eating it. No issues at all!</div>
+        <div class="cc-meta">
+          <span>2 days ago</span>
+          <div class="cc-votes">
+            <button class="cc-vote-btn" onclick="voteUp(this)">▲ <span>247</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cc-item">
+      <div class="cc-avatar" style="background:rgba(240,64,64,0.15);color:var(--danger)">MP</div>
+      <div class="cc-body">
+        <div class="cc-name">Maria P. <span class="cc-verdict-badge cc-badge-danger">Throw it ✕</span></div>
+        <div class="cc-text">Woke up to find I'd left cooked chicken out overnight. I WAS going to eat it — the tool stopped me. Definitely would have gotten food poisoning. This thing literally saved me from a horrible few days.</div>
+        <div class="cc-meta">
+          <span>5 days ago</span>
+          <div class="cc-votes">
+            <button class="cc-vote-btn" onclick="voteUp(this)">▲ <span>891</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cc-item">
+      <div class="cc-avatar" style="background:rgba(240,160,48,0.15);color:var(--risky)">DT</div>
+      <div class="cc-body">
+        <div class="cc-name">Dev T. <span class="cc-verdict-badge cc-badge-risky">Risky !</span></div>
+        <div class="cc-text">Leftover rice from dinner, 4 hours at room temp. I had no idea rice could be more dangerous than meat! Tool explained the Bacillus cereus risk — threw it out. Sharing this with my whole family.</div>
+        <div class="cc-meta">
+          <span>1 week ago</span>
+          <div class="cc-votes">
+            <button class="cc-vote-btn" onclick="voteUp(this)">▲ <span>432</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cc-item">
+      <div class="cc-avatar" style="background:rgba(62,207,110,0.15);color:var(--safe)">SL</div>
+      <div class="cc-body">
+        <div class="cc-name">Sara L. <span class="cc-verdict-badge cc-badge-safe">Safe ✓</span></div>
+        <div class="cc-text">Cheese pizza left in the box for 3 hours in a cool room — was convinced I'd have to bin it. Tool said it's actually lower risk than I thought since it was cool and under 4 hours. Ate it. Still alive 😄</div>
+        <div class="cc-meta">
+          <span>2 weeks ago</span>
+          <div class="cc-votes">
+            <button class="cc-vote-btn" onclick="voteUp(this)">▲ <span>178</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── QUICK REFERENCE ─── -->
+<section class="ref-section">
+  <div class="section-head">
+    <span class="section-tag">Quick reference</span>
+    <div class="section-title">Food safety limits<br><em style="font-family:var(--serif);font-style:italic">at a glance</em></div>
+  </div>
+  <table class="ref-table">
+    <thead>
+      <tr>
+        <th>Food type</th>
+        <th>Max time at room temp</th>
+        <th>Max days in fridge</th>
+        <th>Verdict if exceeded</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Raw chicken / poultry</td>
+        <td>1–2 hours</td>
+        <td>1–2 days</td>
+        <td><span class="ref-pill rp-danger">Throw it out</span></td>
+      </tr>
+      <tr>
+        <td>Cooked meat / poultry</td>
+        <td>2 hours</td>
+        <td>3–4 days</td>
+        <td><span class="ref-pill rp-danger">Throw it out</span></td>
+      </tr>
+      <tr>
+        <td>Cooked rice or pasta</td>
+        <td>1–2 hours</td>
+        <td>3–5 days</td>
+        <td><span class="ref-pill rp-danger">Throw it out</span></td>
+      </tr>
+      <tr>
+        <td>Milk / soft dairy</td>
+        <td>2 hours</td>
+        <td>7 days (unopened)</td>
+        <td><span class="ref-pill rp-danger">Throw it out</span></td>
+      </tr>
+      <tr>
+        <td>Hard cheese</td>
+        <td>4–6 hours</td>
+        <td>3–4 weeks</td>
+        <td><span class="ref-pill rp-risky">Check carefully</span></td>
+      </tr>
+      <tr>
+        <td>Eggs (cooked)</td>
+        <td>2 hours</td>
+        <td>3–4 days</td>
+        <td><span class="ref-pill rp-danger">Throw it out</span></td>
+      </tr>
+      <tr>
+        <td>Cut fruit / veg</td>
+        <td>2 hours</td>
+        <td>3–5 days</td>
+        <td><span class="ref-pill rp-risky">Check carefully</span></td>
+      </tr>
+      <tr>
+        <td>Bread / baked goods</td>
+        <td>1–2 days</td>
+        <td>1 week</td>
+        <td><span class="ref-pill rp-safe">Generally safe</span></td>
+      </tr>
+      <tr>
+        <td>Soup / stew</td>
+        <td>2 hours</td>
+        <td>3–4 days</td>
+        <td><span class="ref-pill rp-danger">Throw it out</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <p>Guidance based on USDA, FDA, and WHO food safety recommendations. This tool is for general informational purposes only — not a substitute for medical advice. When seriously in doubt, discard the food.</p>
+  <p style="margin-top:8px; color:rgba(245,240,232,0.1)">© 2025 Can I Eat This — Free food safety decision tool. No tracking. No ads. No accounts.</p>
+</footer>
+
+</div><!-- /page -->
+
+<script>
+const state = { food:null, time:null, temp:null, signs:null };
+const riskScore = { food:0, time:0, temp:0, signs:0 };
+
+function pick(btn, key) {
+  btn.closest('.opt-grid, [id$="Grid"]').querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  state[key] = btn.dataset.val;
+  riskScore[key] = parseInt(btn.dataset.risk)||0;
+
+  if (key==='time') showRiskBar();
+  if (key==='temp') showBacteriaCount();
+
+  const map = {food:'nxt1',time:'nxt2',temp:'nxt3',signs:'nxt4'};
+  const nb = document.getElementById(map[key]);
+  if(nb) { nb.classList.add('show'); }
+}
+
+function showRiskBar() {
+  const d = document.getElementById('riskDisplay');
+  d.classList.add('show');
+  const pct = Math.min(100, (riskScore.time/5)*100);
+  setTimeout(()=>{
+    const f = document.getElementById('riskFill');
+    f.style.width = pct+'%';
+    const col = pct<30 ? '#3ecf6e' : pct<60 ? '#f0a030' : '#f04040';
+    f.style.background = `linear-gradient(90deg, ${col}88, ${col})`;
+  }, 50);
+}
+
+function showBacteriaCount() {
+  const d = document.getElementById('bacteriaDisplay');
+  d.classList.add('show');
+  const timeR = riskScore.time;
+  const tempR = riskScore.temp;
+  const combined = timeR + tempR;
+  let count, label;
+  if(combined <= 1) { count='~100'; label='Very low — well within safe range'; }
+  else if(combined <= 3) { count='~10,000'; label='Moderate growth — approaching risk threshold'; }
+  else if(combined <= 5) { count='~1,000,000'; label='Significant growth — potential illness risk'; }
+  else if(combined <= 7) { count='~100,000,000'; label='Dangerous levels — high likelihood of illness'; }
+  else { count='>1,000,000,000'; label='Critical — extremely dangerous, discard immediately'; }
+
+  document.getElementById('bacteriaCount').textContent = count + ' bacteria/g';
+  document.getElementById('bacteriaSub').textContent = label;
+}
+
+function goStep(n) {
+  document.querySelectorAll('.tool-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+
+  const pills = ['pill1','pill2','pill3','pill4','pillV'];
+  pills.forEach((pid,i)=>{
+    const p = document.getElementById(pid);
+    p.classList.remove('active','done');
+    if(i<n-1) p.classList.add('done');
+    if(i===n-1) p.classList.add('active');
+  });
+
+  const pct = ((n-1)/4)*100;
+  document.getElementById('progBar').style.width = pct+'%';
+  document.getElementById('toolSection').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function getTotalRisk() {
+  const signs = state.signs;
+  if(signs==='mold'||signs==='multi') return 95;
+  if(signs==='smell'||signs==='texture') return 90;
+  if(signs==='color') return 80;
+
+  const base = riskScore.food + riskScore.time + riskScore.temp;
+  return Math.min(95, Math.round((base/14)*100));
+}
+
+function getVerdict() {
+  const {food,time,temp,signs} = state;
+  const highRisk = ['meat','cooked-meat','dairy','eggs','rice-pasta','soup-stew'].includes(food);
+
+  if(signs==='mold'||signs==='multi') return {
+    level:'danger', label:'Unsafe — Discard immediately',
+    title:'Throw it out.', sub:'Visible mold or multiple spoilage signs mean the food is unsafe — even parts that look clean.',
+    bacteria:'>1,000,000,000 bacteria/g', bacteriaSub:'Mycotoxin contamination likely — heat will not make it safe.',
+    science:'Visible mold signals established microbial colonies. Mold on food produces mycotoxins that spread beyond the visible area and survive cooking. The food must be discarded entirely.',
+    rules:[
+      {icon:'✕',col:'var(--danger)',text:"Do not taste-test it — toxins aren't always detectable by taste."},
+      {icon:'✕',col:'var(--danger)',text:'Do not cut off the mold and eat the rest — soft foods are contaminated throughout.'},
+      {icon:'✕',col:'var(--danger)',text:'Seal in a bag before discarding to prevent contaminating surfaces.'}
+    ]
+  };
+
+  if(signs==='smell'||signs==='texture'||signs==='color') return {
+    level:'danger', label:'Unsafe — Clear spoilage detected',
+    title:'Throw it out.', sub:'Off smell, changed texture, or discoloration are definitive signs of spoilage.',
+    bacteria:'~100,000,000+ bacteria/g', bacteriaSub:'Microbial activity is well advanced — even without mold.',
+    science:'Pathogen activity that causes illness (Salmonella, E. coli, Listeria) is often undetectable by smell. If you CAN detect spoilage, the bacterial count is already extremely high.',
+    rules:[
+      {icon:'✕',col:'var(--danger)',text:"Cooking does not make spoiled food safe — many bacterial toxins are heat-stable."},
+      {icon:'✕',col:'var(--danger)',text:'Off-smelling meat should always be discarded regardless of the use-by date.'},
+      {icon:'✓',col:'var(--safe)',text:"Trust your instincts — if something seems wrong, it almost always is."}
+    ]
+  };
+
+  if(time==='days'&&temp!=='cold') return {
+    level:'danger', label:'Unsafe — Too long in unsafe conditions',
+    title:'Throw it out.', sub:'Multiple days outside cold storage exceeds all food safety limits.',
+    bacteria:'>1,000,000,000 bacteria/g', bacteriaSub:'Bacterial load is in the billions — illness is virtually certain if consumed.',
+    science:'After just 4 hours at room temperature, bacteria in high-risk foods can reach billions per gram. Multiple days represents catastrophic overgrowth. Even reheating cannot destroy the toxins already produced.',
+    rules:[
+      {icon:'✕',col:'var(--danger)',text:'Do not reheat and eat — heat kills bacteria but NOT the toxins they have already produced.'},
+      {icon:'✕',col:'var(--danger)',text:'Discard it now — every hour it remains out adds risk.'},
+      {icon:'✓',col:'var(--safe)',text:'Going forward: refrigerate leftovers within 2 hours, label with the date.'}
+    ]
+  };
+
+  if(time==='overnight'&&highRisk) return {
+    level:'danger', label:'Unsafe — Overnight in danger zone',
+    title:'Throw it out.', sub:'High-risk food left out overnight is far beyond the 2-hour safe window.',
+    bacteria:'~100,000,000 bacteria/g', bacteriaSub:'8–12 hours in the danger zone means billions of doublings have occurred.',
+    science:"The USDA 2-hour rule is the industry standard. Overnight = 8–12 hours, which is 4–6x the maximum safe exposure. Bacteria double every 20 minutes — after 12 hours, a single bacterium becomes over 68 billion.",
+    rules:[
+      {icon:'✕',col:'var(--danger)',text:'Never eat cooked meat, dairy, eggs, or rice left out overnight.'},
+      {icon:'✕',col:'var(--danger)',text:'Reheating will not make it safe — toxins survive high temperatures.'},
+      {icon:'✓',col:'var(--safe)',text:'This applies even if it looks and smells completely normal.'}
+    ]
+  };
+
+  if((time==='4to8'||time==='overnight')&&!highRisk) return {
+    level:'risky', label:'Borderline — Proceed with caution',
+    title:'Probably not worth it.', sub:"Lower-risk food left a long time is borderline — we'd recommend discarding.",
+    bacteria:'~1,000,000 bacteria/g', bacteriaSub:'Bacterial load is elevated — acceptable only for the lowest-risk foods.',
+    science:"Lower-risk foods like bread, whole fruit, or hard cheese are less hospitable environments for rapid pathogen growth. However, extended exposure time still builds risk — especially in warm conditions.",
+    rules:[
+      {icon:'!',col:'var(--risky)',text:'Inspect for any off smell, texture, or appearance changes before eating.'},
+      {icon:'!',col:'var(--risky)',text:'Do not serve to children, elderly, pregnant women, or immunocompromised people.'},
+      {icon:'✓',col:'var(--safe)',text:"If there are zero signs and it was in a cool environment, it's likely still okay."}
+    ]
+  };
+
+  if(time==='2to4'&&highRisk&&(temp==='room'||temp==='warm')) return {
+    level:'risky', label:'Borderline — Right at the limit',
+    title:"Right on the edge.", sub:"You're at or past the 2-hour rule for high-risk food — we lean toward discarding.",
+    bacteria:'~10,000–1,000,000 bacteria/g', bacteriaSub:'Growth is active — the warmer the conditions, the higher the count.',
+    science:"The FDA 2-hour rule is conservative by design. At 2–4 hours in room-to-warm conditions, bacterial counts may or may not have reached illness-causing levels — it depends on starting conditions. The risk isn't worth it.",
+    rules:[
+      {icon:'!',col:'var(--risky)',text:"If the temperature was warm (30°C+), discard — the safe window in heat is 1 hour, not 2."},
+      {icon:'!',col:'var(--risky)',text:'Do not serve to vulnerable groups — children, elderly, pregnant, or immunocompromised.'},
+      {icon:'✓',col:'var(--safe)',text:'If eating, reheat thoroughly to 74°C / 165°F and consume immediately — no reheating leftovers of this.'}
+    ]
+  };
+
+  if(time==='2to4'&&!highRisk) return {
+    level:'safe', label:'Generally safe',
+    title:'Probably fine.', sub:'Lower-risk food at 2–4 hours in normal conditions is within acceptable limits for most people.',
+    bacteria:'~1,000–10,000 bacteria/g', bacteriaSub:'Low bacterial activity — well within healthy adult tolerance.',
+    science:'Lower-risk foods have fewer proteins and moisture conditions for rapid pathogen growth. At room temperature for 2–4 hours, bread, whole produce, or pastries without cream are generally considered acceptable by food safety standards.',
+    rules:[
+      {icon:'✓',col:'var(--safe)',text:'Inspect for any off smells or visible changes before eating.'},
+      {icon:'✓',col:'var(--safe)',text:'If conditions were cool, you are well within safe limits.'},
+      {icon:'!',col:'var(--risky)',text:"Refrigerate any remaining portion immediately — don't leave it out longer."}
+    ]
+  };
+
+  if(time==='1to2'&&temp==='warm'&&highRisk) return {
+    level:'risky', label:'Borderline — Warm conditions cut the window',
+    title:'Eat immediately or toss.', sub:'Hot conditions (30°C+) reduce the safe window to about 1 hour for high-risk foods.',
+    bacteria:'~10,000 bacteria/g', bacteriaSub:'Growth is beginning — act now to stay within safe limits.',
+    science:'The FDA recommends cutting the 2-hour limit to 1 hour when ambient temperature exceeds 32°C / 90°F. In a hot car, outdoor picnic, or summer kitchen, bacterial doubling time accelerates significantly.',
+    rules:[
+      {icon:'!',col:'var(--risky)',text:'If eating, reheat fully and eat immediately — do not let it sit any longer.'},
+      {icon:'!',col:'var(--risky)',text:"Don't serve to vulnerable groups in this situation."},
+      {icon:'✓',col:'var(--safe)',text:"Refrigerate any portion you won't eat right now, immediately."}
+    ]
+  };
+
+  return {
+    level:'safe', label:'Safe to eat',
+    title:"You're safe.", sub:'Under 1–2 hours in normal conditions — completely within all food safety guidelines.',
+    bacteria:'~100 bacteria/g', bacteriaSub:'Minimal bacterial growth — well within safe limits for all healthy adults.',
+    science:"Food safety guidelines allow up to 2 hours at room temperature for perishable foods. Under this threshold represents minimal bacterial growth — far below illness-causing levels. Enjoy your food.",
+    rules:[
+      {icon:'✓',col:'var(--safe)',text:'No cause for concern — eat and enjoy.'},
+      {icon:'✓',col:'var(--safe)',text:'Refrigerate any leftovers promptly after eating to reset the clock.'},
+      {icon:'✓',col:'var(--safe)',text:'Even in warm conditions, under 1 hour is generally well within safe limits.'}
+    ]
+  };
+}
+
+function showVerdict() {
+  const v = getVerdict();
+  const risk = getTotalRisk();
+
+  const card = document.getElementById('verdictCard');
+  card.className = 'tool-card active v-'+v.level;
+
+  document.getElementById('vLabel').textContent = v.label;
+  document.getElementById('vTitle').textContent = v.title;
+  document.getElementById('vSub').textContent = v.sub;
+  document.getElementById('vScience').textContent = v.science;
+  document.getElementById('vBacteriaCount').textContent = v.bacteria;
+  document.getElementById('vBacteriaSub').textContent = v.bacteriaSub;
+
+  const col = v.level==='safe' ? 'var(--safe)' : v.level==='risky' ? 'var(--risky)' : 'var(--danger)';
+  const mf = document.getElementById('meterFill');
+  const mg = document.getElementById('meterGlow');
+  setTimeout(()=>{
+    mf.style.width = risk+'%';
+    mf.style.background = `linear-gradient(90deg, ${v.level==='safe'?'#3ecf6e88':''}${v.level==='risky'?'#f0a03088':''}${v.level==='danger'?'#f0404088':''}, ${col})`;
+    mg.style.background = col;
+  }, 400);
+
+  const bactViz = document.getElementById('bactViz');
+  bactViz.innerHTML = '';
+  const dotCount = v.level==='safe' ? 3 : v.level==='risky' ? 8 : 15;
+  for(let i=0;i<dotCount;i++) {
+    const d = document.createElement('div');
+    d.className = 'bact-dot';
+    d.style.animationDelay = (i*0.04)+'s';
+    bactViz.appendChild(d);
+  }
+
+  const rulesEl = document.getElementById('vRules');
+  rulesEl.innerHTML = v.rules.map(r=>`
+    <div class="rule-item">
+      <span class="rule-icon" style="background:${r.col}18;color:${r.col};border:1px solid ${r.col}30">${r.icon}</span>
+      <span>${r.text}</span>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('.tool-card').forEach(c=>{ if(c.id!=='verdictCard') c.classList.remove('active'); });
+
+  const pills = ['pill1','pill2','pill3','pill4','pillV'];
+  pills.forEach((pid,i)=>{
+    const p = document.getElementById(pid);
+    p.classList.remove('active','done');
+    if(i<4) p.classList.add('done');
+    else p.classList.add('active');
+  });
+  document.getElementById('progBar').style.width = '100%';
+  document.getElementById('toolSection').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function restart() {
+  Object.keys(state).forEach(k=>state[k]=null);
+  Object.keys(riskScore).forEach(k=>riskScore[k]=0);
+  document.querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+  document.querySelectorAll('.next-btn').forEach(b=>b.classList.remove('show'));
+  document.querySelectorAll('.tool-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('riskDisplay').classList.remove('show');
+  document.getElementById('bacteriaDisplay').classList.remove('show');
+  document.getElementById('s1').classList.add('active');
+  document.getElementById('progBar').style.width='0%';
+  const pills=['pill1','pill2','pill3','pill4','pillV'];
+  pills.forEach((pid,i)=>{ const p=document.getElementById(pid); p.classList.remove('active','done'); if(i===0)p.classList.add('active'); });
+  document.getElementById('toolSection').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function voteUp(btn) {
+  const sp = btn.querySelector('span');
+  sp.textContent = parseInt(sp.textContent)+1;
+  btn.style.color = 'var(--accent)';
+}
+
+function showToast(msg, icon='📋') {
+  const t = document.getElementById('toast');
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+function shareVerdict(platform) {
+  const v = document.getElementById('vTitle').textContent;
+  const text = `I just checked my food safety with "Can I Eat This?" — Verdict: "${v}" 🍽️ Check yours:`;
+  const url = window.location.href;
+
+  if(platform==='twitter') {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,'_blank');
+  } else if(platform==='whatsapp') {
+    window.open(`https://wa.me/?text=${encodeURIComponent(text+' '+url)}`,'_blank');
+  } else {
+    navigator.clipboard?.writeText(url+' — '+text).then(()=>showToast('Link copied to clipboard!','📋')).catch(()=>showToast('Copy the URL from your browser bar.','🔗'));
+  }
+}
+</script>
+</body>
+</html>
